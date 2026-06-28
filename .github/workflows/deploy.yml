@@ -20,6 +20,7 @@ jobs:
 
       - name: Add EC2 to known hosts
         run: |
+          mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to EC2
@@ -30,5 +31,5 @@ jobs:
             sudo docker stop final-project || true
             sudo docker rm final-project || true
             sudo docker build -t final-project .
-            sudo docker run -d --name final-project -p 80:80 final-project
+            sudo docker run -d --name final-project -p 8080:80 final-project
           EOF
